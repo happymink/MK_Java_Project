@@ -4,11 +4,16 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 class ImagePanel extends JPanel{
 	private Image img;
@@ -86,13 +91,72 @@ public class First extends JFrame {
 //		frame.pack(); //패널 이미지사이즈에 맞게 자동 조정
 		frame.getContentPane().add(testpanel);
 		
-		JButton btnNewButton_1 = new JButton("New button");
+		JLabel viewProductLabel = new JLabel("New label");
+		viewProductLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		viewProductLabel.setBounds(12, 251, 133, 125);
+		testpanel.add(viewProductLabel);
+			
+		JButton button = new JButton("\u25CF"); //생수
+		button.addActionListener(new ActionListener() {
+
+	
+			public void actionPerformed(ActionEvent e) {
+			
+				viewProductLabel.setText("<html><body>상품명:생수<br>가격 : 350원</body></html>");
+				}
+			
+		});
+		button.setFont(new Font("210 양말구멍 R", Font.PLAIN, 10));
+		button.setBounds(27, 108, 55, 21);
+		testpanel.add(button);
+		
+		JButton button_1 = new JButton("\u25CF"); //일반 커피
+		button_1.setFont(new Font("210 양말구멍 R", Font.PLAIN, 10));
+		button_1.setBounds(94, 108, 55, 21);
+		testpanel.add(button_1);
+		
+		JButton button_2 = new JButton("\u25CF"); //이온음료
+		button_2.setFont(new Font("210 양말구멍 R", Font.PLAIN, 10));
+		button_2.setBounds(159, 108, 55, 21);
+		testpanel.add(button_2);
+		
+		JButton button_3 = new JButton("\u25CF"); //고급 커피
+		button_3.setFont(new Font("210 양말구멍 R", Font.PLAIN, 10));
+		button_3.setBounds(222, 108, 55, 21);
+		testpanel.add(button_3);
+		
+		JButton button_4 = new JButton("\u25CF"); //탄산음료
+		button_4.setFont(new Font("210 양말구멍 R", Font.PLAIN, 10));
+		button_4.setBounds(27, 206, 55, 21);
+		testpanel.add(button_4);
+		
+		JButton btnNewButton = new JButton("COIN");
+		btnNewButton.setFont(new Font("굴림", Font.BOLD, 9));
+		btnNewButton.setBounds(157, 283, 57, 30);
+		testpanel.add(btnNewButton);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(198, 330, 66, 30);
+		testpanel.add(lblNewLabel);
+		
+		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.setBackground(Color.BLUE);
+		btnNewButton_2.setBounds(248, 265, 34, 30);
+		testpanel.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("");
+		btnNewButton_3.setBackground(Color.RED);
+		btnNewButton_3.setBounds(222, 263, 24, 21);
+		testpanel.add(btnNewButton_3);
+		
+		
+		JButton btnNewButton_1 = new JButton("관리자 모드");
 		
 		btnNewButton_1.setBounds(320, 51, 113, 23);
 		frame.getContentPane().add(btnNewButton_1);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setBounds(25, 105, 55, 21);
-		frame.getContentPane().add(btnNewButton);
+		
+		
 	}
+	
 }
