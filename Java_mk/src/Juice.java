@@ -1,9 +1,11 @@
 
 
 	public class Juice extends Object{
-		private String name;
-		private int price;
-		private int money;
+		private static String name;
+		private static int price;
+		private static int money;
+		private int index;
+		private static int [] CoinWallet = {5,5,5,5,5};
 
 		
 		public String getName() {
@@ -24,6 +26,14 @@
 		}
 		public void setMoney(int money) {
 			this.money = money;
+		}
+		
+		public int getCoinWallet(int index) {
+			return CoinWallet[index];
+		}
+		
+		public void setCoinWallet(int index) {
+			CoinWallet[index] += 1;
 		}
 	}
 
