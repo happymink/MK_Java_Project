@@ -30,7 +30,7 @@ public class InventoryUI extends JFrame {
 		num=0;//초기화
 	
 		
-		setSize(550, 700);
+		setSize(550, 620);
 		setVisible(true);
 		setLocation(900, 100);
 		getContentPane().setLayout(null);
@@ -55,13 +55,13 @@ public class InventoryUI extends JFrame {
 		panel.add(lblNewLabel_1);
 		
 		JPanel panel_1 = new JPanel();	//물품 주문 패널
-		panel_1.setBounds(0, 202, 534, 341);
+		panel_1.setBounds(0, 180, 534, 341);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		
 		JButton btnNewButton = new JButton("\uC6D0\uB450");  //원두 버튼
-		btnNewButton.setBounds(30, 61, 100, 60);
+		btnNewButton.setBounds(30, 61, 80, 40);
 		btnNewButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
@@ -80,7 +80,7 @@ public class InventoryUI extends JFrame {
 		
 		JLabel lblNewLabel_3 = new JLabel("\uC8FC\uBB38\uC218\uB7C9\uC785\uB825 :");  ///주문 수량 입력
 		lblNewLabel_3.setFont(new Font("굴림", Font.BOLD, 12));
-		lblNewLabel_3.setBounds(30, 237, 100, 20);
+		lblNewLabel_3.setBounds(30, 207, 100, 20);
 		panel_1.add(lblNewLabel_3);
 		
 		textField = new JTextField();		
@@ -88,9 +88,9 @@ public class InventoryUI extends JFrame {
 		panel_1.add(textField);
 		textField.setColumns(10);
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 17));
-		lblNewLabel.setBounds(30, 275, 450, 30);
+		lblNewLabel = new JLabel("123");
+		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 14));
+		lblNewLabel.setBounds(30, 285, 450, 30);
 		panel_1.add(lblNewLabel);
 		
 		
@@ -100,8 +100,9 @@ public class InventoryUI extends JFrame {
 		panel_3.setLayout(null);
 		
 		
-		
-		
+		JButton btnNewButton1 = new JButton("주문");  //주문 버튼
+		btnNewButton1.setBounds(30, 310, 80, 40);
+		panel_1.add(btnNewButton1);
 		
 		
 	}

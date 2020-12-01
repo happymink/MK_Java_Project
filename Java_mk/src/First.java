@@ -128,6 +128,7 @@ public class First extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			
 				showlabel("생수",450);
+			
 				}
 			
 		});
@@ -211,12 +212,23 @@ public class First extends JFrame {
 		
 	
 		
-		JButton btnNewButton_2 = new JButton("");
+		JButton btnNewButton_2 = new JButton("");		//구매 버튼
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				payment_product();
+			}
+		});
 		btnNewButton_2.setBackground(Color.BLUE);
 		btnNewButton_2.setBounds(248, 265, 34, 30);
 		testpanel.add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("");
+		JButton btnNewButton_3 = new JButton("");		//잔돈 반환
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				return_money();
+			}
+		});
 		btnNewButton_3.setBackground(Color.RED);
 		btnNewButton_3.setBounds(222, 263, 24, 21);
 		testpanel.add(btnNewButton_3);
@@ -260,7 +272,7 @@ public class First extends JFrame {
 				canbuy = "구매가 가능한 상품입니다.";
 			}
 			else {
-				canbuy = "구매가 불가능한 상품입니다.";
+				canbuy = "잔액이 부족합니다.";
 				}
 			
 			menu = "<html><body>상품명: "+juice.getName()+"<br>가격 : "+juice.getPrice()+"<br>" +canbuy+ "</body></html>";
@@ -303,7 +315,76 @@ public class First extends JFrame {
 			    }
 			    }
 		}
+		
+		public void return_money() {
+			int [] coin = {10,50,100,500,1000};	//잔돈 반환 함수
+			int total= juice.getMoney();
+			String text = "";
+			
+			if (juice.getMoney() == 0) {
+				JOptionPane.showMessageDialog(null, "반환할 돈이 없습니다");
+				viewProductLabel.setText(" ");
+				juice.setName(null);
+				juice.setPrice(0);
+			}
+			
+			else {
+			for (int i=4; i>-1; i--) {
+				int count = 0;
+				
+				while(total / coin[i] >0) {
+					count++;
+					total -= coin[i];
+					juice.setMinusCoin(i, count);
+				}
+				
+				juice.setMoney(total);
+				text = text + coin[i] + "원권 :" + count +" 개. ";		//잔돈이 어떤 화폐로 반환됬는지 text저장
+				
+				}
+			JOptionPane.showMessageDialog(null, "잔돈이 반환되었습니다");
+			JOptionPane.showMessageDialog(null,text);
+			
+			}
+			lblNewLabel.setText("0");
+			viewProductLabel.setText(" ");
+			juice.setName(null);
+			juice.setPrice(0);
+		}
+		
+		public void payment_product() { 		//결제 함수
+			if (juice.getName()==null) {
+				JOptionPane.showMessageDialog(null, "상품을 선택하세요");
+			}
+				else if (juice.getMoney() < juice.getPrice() || (juice.getMoney() < 0)) {
+				JOptionPane.showMessageDialog(null, "결제 실패");
+			}
+			else {
+			int ans = JOptionPane.showConfirmDialog(this, "<"+juice.getName()+"> 주문하시겠습니까?\n"+"결제 가능 금액:    "+juice.getMoney()+"       물품 가격:  "+juice.getPrice(),
+													"결제 확인 창", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-	}
+			if (ans == 0) {
+				
+				//재고 -1
+				//판매 수량 +1
+				juice.setMoney(juice.getMoney()-juice.getPrice());
+				juice.setProfit_money(juice.getPrice());
+				JOptionPane.showMessageDialog(null, "결제 성공!");
+				System.out.println("이익금"+juice.getProfit_money());
+				
+			}
+			
+			
+			}
+			viewProductLabel.setText("");
+			String to = Integer.toString(juice.getMoney());
+			System.out.println(juice.getMoney());
+			lblNewLabel.setText(to);
+			juice.setName(null);
+			juice.setPrice(0);
+		}
+		}
+
+	
 
 
