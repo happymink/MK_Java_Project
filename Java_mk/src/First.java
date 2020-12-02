@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -37,8 +39,6 @@ class ImagePanel extends JPanel{
 
 
 public class First extends JFrame {
-
-	Vector<Juice> list =new Vector<Juice>();
 	Juice juice = null;
 	CoinUI coin = null;
 	public int money = 0;
@@ -46,10 +46,18 @@ public class First extends JFrame {
 	String menu="";
 	String[] options ; //패스워드 필드 
 	char[] password ; //패스워드 필드
-	String basic_pw = "12345";
+	String basic_pw = "";
 	JLabel viewProductLabel;
 	JLabel lblNewLabel;
 	private JFrame frame;
+	
+	/*		각 재고당  최대 3개 한정생성		*/
+	Queue1 stock0 = new Queue1(3);
+	Queue1 stock1 = new Queue1(3);
+	Queue1 stock2 = new Queue1(3);
+	Queue1 stock3 = new Queue1(3);
+	Queue1 stock4 = new Queue1(3);
+	
 
 	/**
 	 * Launch the application.
@@ -76,7 +84,6 @@ public class First extends JFrame {
 	private void initialize() {
 		juice = new Juice();
 		frame = new JFrame();
-		coin = new CoinUI();
 		frame.setSize(477, 546);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -118,17 +125,31 @@ public class First extends JFrame {
 		testpanel.add(lblNewLabel);
 		testpanel.add(viewProductLabel);
 		
+		
+
+		
+		
+		/*		재고 1~5까지 5개로 채우기 					*/
+		stock0.fillQueue(3);
+		stock1.fillQueue(3);
+		stock2.fillQueue(3);
+		stock3.fillQueue(3);
+		stock4.fillQueue(3);
 		/*ㅡㅡㅡㅡ              ㅡㅡㅡㅡㅡㅡㅡ                         ㅡㅡㅡㅡㅡ*/
 		
 		JButton button = new JButton("\u25CF"); //생수
 		
 		button.addActionListener(new ActionListener() {
-
+		
 	
 			public void actionPerformed(ActionEvent e) {
-			
-				showlabel("생수",450);
-			
+				if(stock0.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, juice.getproductname(0)+"재고가 부족합니다");
+					viewProductLabel.setText("");
+				}
+				else
+					showlabel(juice.getproductname(0),juice.getproductprice(0),0);
 				}
 			
 		});
@@ -142,8 +163,16 @@ public class First extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 			
-				showlabel("일반 커피",500);
+
+				if(stock1.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, juice.getproductname(1)+"재고가 부족합니다");
+					viewProductLabel.setText("");
 				}
+				else
+					showlabel(juice.getproductname(1),juice.getproductprice(1),1);
+				}
+				
 		});
 		button_1.setFont(new Font("210 양말구멍 R", Font.PLAIN, 10));
 		button_1.setBounds(94, 108, 55, 21);
@@ -155,8 +184,15 @@ public class First extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 			
-				showlabel("이온음료",550);
+				if(stock2.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, juice.getproductname(2)+"재고가 부족합니다");
+					viewProductLabel.setText("");
 				}
+				else
+					showlabel(juice.getproductname(2),juice.getproductprice(2),2);
+				}
+				
 		});
 		button_2.setFont(new Font("210 양말구멍 R", Font.PLAIN, 10));
 		button_2.setBounds(159, 108, 55, 21);
@@ -168,7 +204,14 @@ public class First extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 			
-				showlabel("고급 커피",750);
+				if(stock3.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, juice.getproductname(3)+"재고가 부족합니다");
+					viewProductLabel.setText("");
+				}
+				else
+					showlabel(juice.getproductname(3),juice.getproductprice(3),3);
+				
 				}
 		});
 		button_3.setFont(new Font("210 양말구멍 R", Font.PLAIN, 10));
@@ -181,8 +224,15 @@ public class First extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 			
-				showlabel("탄산 음료",700);
+				if(stock4.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, juice.getproductname(4)+"재고가 부족합니다");
+					viewProductLabel.setText("");
 				}
+				else
+					showlabel(juice.getproductname(4),juice.getproductprice(4),4);
+				}
+				
 		});
 		button_4.setFont(new Font("210 양말구멍 R", Font.PLAIN, 10));
 		button_4.setBounds(27, 206, 55, 21);
@@ -244,6 +294,16 @@ public class First extends JFrame {
 			}});
 		testpanel.add(btnNewButton_4);
 		
+		JButton btnNewButton_5 = new JButton("관리자 비밀번호 변경"); //비밀번호 변겅
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				check_password();
+			}
+		});
+		btnNewButton_5.setBounds(320, 83, 114, 45);
+		testpanel.add(btnNewButton_5);
+		
 		
 		JButton btnNewButton_1 = new JButton("관리자 모드");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -258,15 +318,18 @@ public class First extends JFrame {
 		
 
 
-		public void showlabel(String name, int price){//판매 데이터 입력
+		public void showlabel(String name, int price, int index){//판매 데이터 입력
 			
 			String canbuy="";
 			juice.setName(name);
 			juice.setPrice(price);
+			juice.setindex(index);
 			
 		
 			System.out.println(menu);
 		
+		
+			
 			if (juice.getMoney() >= juice.getPrice()) {
 				System.out.println(juice.getMoney() >= juice.getPrice());
 				canbuy = "구매가 가능한 상품입니다.";
@@ -289,7 +352,7 @@ public class First extends JFrame {
 			
 			
 		}//showlabel
-		public void Join_admin() {
+		public void Join_admin() {			//관리자 모드 접속 함수
 			JPanel panel = new JPanel();
 			JLabel label = new JLabel("비밀번호를 입력하세요:");
 			JPasswordField pass = new JPasswordField(10);
@@ -303,9 +366,9 @@ public class First extends JFrame {
 			{
 			    char[] password = pass.getPassword();
 			    String pasww = new String(password);
-			    if(basic_pw.equals(pasww))
+			    if(juice.getpassword().equals(pasww))
 			    {
-			    	 System.out.println(new String(password)==basic_pw);
+			    	 System.out.println(new String(password)==juice.getpassword());
 			    	JOptionPane.showMessageDialog(null, "로그인 성공!");
 			    	new InventoryUI();
 			    }
@@ -352,7 +415,9 @@ public class First extends JFrame {
 			juice.setPrice(0);
 		}
 		
-		public void payment_product() { 		//결제 함수
+		public void payment_product() { //결제 함수
+			int index = juice.getindex();
+			System.out.println("현재 인덱스:"+index);
 			if (juice.getName()==null) {
 				JOptionPane.showMessageDialog(null, "상품을 선택하세요");
 			}
@@ -362,15 +427,29 @@ public class First extends JFrame {
 			else {
 			int ans = JOptionPane.showConfirmDialog(this, "<"+juice.getName()+"> 주문하시겠습니까?\n"+"결제 가능 금액:    "+juice.getMoney()+"       물품 가격:  "+juice.getPrice(),
 													"결제 확인 창", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
-
+		
 			if (ans == 0) {
 				
 				//재고 -1
 				//판매 수량 +1
-				juice.setMoney(juice.getMoney()-juice.getPrice());
-				juice.setProfit_money(juice.getPrice());
-				JOptionPane.showMessageDialog(null, "결제 성공!");
-				System.out.println("이익금"+juice.getProfit_money());
+				try 
+				{
+					Minus_Stock();
+					
+					juice.setStock(index,juice.getStock(index)-1);
+					System.out.println("getstock index -1");
+					System.out.println(juice.getStock(0)-1);
+					juice.setMoney(juice.getMoney()-juice.getPrice());
+					juice.setProfit_money(juice.getPrice());
+					JOptionPane.showMessageDialog(null, "결제 성공!");
+					System.out.println("이익금"+juice.getProfit_money());
+				}
+				catch(Exception e)
+				{
+					JOptionPane.showMessageDialog(null, juice.getName()+" 재고가 없습니다.");
+					
+				}
+				
 				
 			}
 			
@@ -383,7 +462,106 @@ public class First extends JFrame {
 			juice.setName(null);
 			juice.setPrice(0);
 		}
+		
+		public void change_password() {
+			
+			JPanel panel = new JPanel();
+			JLabel label = new JLabel("새로운 비밀번호를 입력하세요:");
+			JPasswordField pass = new JPasswordField(10);
+			panel.add(label);
+			panel.add(pass);
+			String[] options = new String[]{"변경", "취소"};
+			int option = JOptionPane.showOptionDialog(null, panel, "비밀번호 변경",
+			                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+			                         null, options, options[1]);
+			if(option == 0) // pressing OK button
+			{
+			    char[] password = pass.getPassword();
+			    String pasww = new String(password);   
+			    String pwPattern ="^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,12}$";	//영문,숫자,특수문자		    		
+			    Matcher matcher = Pattern.compile(pwPattern).matcher(pasww);
+			    System.out.println(pasww);
+	
+			    if(matcher.find()){
+			        juice.setpassword(pasww);
+			        JOptionPane.showMessageDialog(null, "비밀번호가 변경되었습니다!");
+			    }
+			    else {
+			    	JOptionPane.showMessageDialog(null, "8~12자 이내, 숫자 및 특수문자를 하나 이상 포함하세요!");
+			    }
+			    }
+			   
+			}
+		
+		public void check_password() {
+			JPanel panel = new JPanel();
+			JLabel label = new JLabel("현재 비밀번호를 입력하세요:");
+			JPasswordField pass = new JPasswordField(10);
+			panel.add(label);
+			panel.add(pass);
+			String[] options = new String[]{"확인", "취소"};
+			int option = JOptionPane.showOptionDialog(null, panel, "비밀번호 체크",
+			                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+			                         null, options, options[1]);
+			if(option == 0) // pressing OK button
+			{
+			    char[] password = pass.getPassword();
+			    String pasww = new String(password);
+			    if(juice.getpassword().equals(pasww))
+			    {
+			    	 System.out.println(new String(password)==juice.getpassword());
+			    	JOptionPane.showMessageDialog(null, "비밀번호 일치!");
+			    	change_password();
+			    }
+			    else {
+			    System.out.println("Your password is: " + new String(password));
+			    JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다!");
+			    }
+			    }
 		}
+		
+		public void Minus_Stock() {
+			
+			System.out.println("현재"+juice.getproductname(juice.getindex())+juice.getStock(juice.getindex())+"의 재고 :");
+			System.out.println("현재 겟 인덱스:"+juice.getindex()+"현재 겟 네임 : "+juice.getName()+ "0번째 겟 프러덕트네임:"+ juice.getproductname(0));
+			
+			if (juice.getName()==juice.getproductname(0)) {
+				stock0.deQueue();
+				juice.setStock(juice.getindex(),juice.getStock(0)-1);
+				 JOptionPane.showMessageDialog(null, juice.getproductname(0)+"재고 가감");
+		
+			}
+			else if(juice.getName()==juice.getproductname(1)){
+				stock1.deQueue();
+				juice.setStock(juice.getindex(),juice.getStock(1)-1);
+				 JOptionPane.showMessageDialog(null, "재고 가감");
+			}
+			else if(juice.getName()==juice.getproductname(2)) {
+				stock2.deQueue();
+				juice.setStock(juice.getindex(),juice.getStock(2)-1);
+				 JOptionPane.showMessageDialog(null, "재고 가감");
+			}
+			else if(juice.getName()==juice.getproductname(3)) {
+				stock3.deQueue();
+				juice.setStock(juice.getindex(),juice.getStock(3)-1);
+				 JOptionPane.showMessageDialog(null, "재고 가감");
+			}
+			else if(juice.getName()==juice.getproductname(4)) {
+				stock4.deQueue();
+				juice.setStock(juice.getindex(),juice.getStock(4)-1);
+				 JOptionPane.showMessageDialog(null, "재고 가감");
+			}
+			
+				
+			}
+			
+		
+		}
+
+		
+		
+
+		
 
 	
 

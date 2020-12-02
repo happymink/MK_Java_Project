@@ -17,19 +17,26 @@ public class InventoryUI extends JFrame {
 	Panel pal =new Panel();
 	Juice juice = new Juice();
 	private JTable table;
-	Object[][] a = {{5,5,5,5,5}};
-	Object columnNames[] = {"물","일반 커피","이온 음료","고급 커피","탄산 음료"};
-	int num;
 	String stockname;
 	private JTextField textField;
 	JLabel lblNewLabel;
 	
 	public InventoryUI(){
-	
 		
-		num=0;//초기화
-	
 		
+			Object [][] coffeearr = new Object [1][5]; 
+					
+				coffeearr[0][0]= juice.getStock(0);
+				coffeearr[0][1]= juice.getStock(1);
+				coffeearr[0][2]= juice.getStock(2);
+				coffeearr[0][3]= juice.getStock(3);
+				coffeearr[0][4]= juice.getStock(4);
+				
+		
+		
+		
+		Object product_name[] = {juice.getproductname(0),juice.getproductname(1),juice.getproductname(2),juice.getproductname(3),juice.getproductname(4)}; 
+
 		setSize(550, 620);
 		setVisible(true);
 		setLocation(900, 100);
@@ -41,7 +48,7 @@ public class InventoryUI extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		table = new JTable(a , columnNames);
+		table = new JTable(coffeearr , product_name);
 		table.setBounds(39, 25, 250, 150);
 		panel.add(table);
 		
@@ -66,9 +73,8 @@ public class InventoryUI extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				juice.setMoney(juice.getMoney()+5000);
 				lblNewLabel.setText("를 주문하실건가요? 수량을 입력하세요.");
-				System.out.println(juice.getMoney());
+
 			}
 		});
 		panel_1.add(btnNewButton);
@@ -104,6 +110,16 @@ public class InventoryUI extends JFrame {
 		btnNewButton1.setBounds(30, 310, 80, 40);
 		panel_1.add(btnNewButton1);
 		
+		JButton btnNewButton2 = new JButton("비밀번호 변경");  //비밀번호 변경 버튼
+		btnNewButton2.setBounds(120, 310, 80, 40);
+		btnNewButton2.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		panel_1.add(btnNewButton2);
 		
 	}
 	
