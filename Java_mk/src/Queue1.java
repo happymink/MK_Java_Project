@@ -4,12 +4,24 @@ public class Queue1 extends Object{
 	private int[] array;
 	private int head;
 	private int tail;
+	private int size;
+//	public Queue1(int size){
+//		
+//		head = -1;
+//		tail = -1; 
+//		this.size = size;
+//		array = new int[this.size];
+//		}
+	public Queue1(){}
 	
-	public Queue1(int size){
-		array = new int[size];
-		head = -1;
-		tail = -1; 
-		}
+	
+	public void Creat_Queue(int size){
+	
+	head = -1;
+	tail = -1; 
+	this.size = size;
+	array = new int[this.size];
+	}
 	
 	/** * 데이터 입력 * * @param number */ 
 	public void enQueue(int number) {
@@ -35,7 +47,7 @@ public class Queue1 extends Object{
 		}
 	
 	public int Queuelength() {
-		return array.length;
+		return (tail-head);
 	}
 	
 	
@@ -62,6 +74,8 @@ public class Queue1 extends Object{
 			System.out.println(array[i]);
 		}
 	}
+	
+	
 	}
 	
 

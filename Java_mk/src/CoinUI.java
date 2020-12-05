@@ -14,12 +14,11 @@ public class CoinUI extends JFrame {
 	Container container = getContentPane();
 	Panel pal =new Panel();
 	Juice juice = new Juice();
-	Object[][] a = {{5,5,5,5,5}};
-	Object columnNames[] = {"물","일반 커피","이온 음료","고급 커피","탄산 음료"};
+	//Object[][] a = {{5,5,5,5,5}};
+	//Object columnNames[] = {"물","일반 커피","이온 음료","고급 커피","탄산 음료"};
 	int count_1000 = 0;
-	String stockname;
 	JLabel lblNewLabel;
-	static int [] coin_wallet = {0,0,0,0,0};  //코인 지갑   10 , 50 , 100 , 500 , 1000 순서
+	//static int [] coin_wallet = {0,0,0,0,0};  //코인 지갑   10 , 50 , 100 , 500 , 1000 순서
 	public CoinUI(){
 	
 		juice = new Juice();
@@ -28,7 +27,7 @@ public class CoinUI extends JFrame {
 		panel.setLayout(null);
 		setSize(250, 200);
 		setVisible(true);
-		
+		setTitle("동전 투입기");
 		getContentPane().setLayout(null);
 
 		setVisible(true);
@@ -50,7 +49,7 @@ public class CoinUI extends JFrame {
 					JOptionPane.showMessageDialog(null, "지폐는 최대 투입금이 3,000 원입니다.");
 				}
 				if (!(juice.getMoney()+1000>5000) && !(count_1000>= 3)) {
-				juice.setCoinWallet(4);
+				juice.setPlusCoin(4);
 				juice.setMoney(juice.getMoney()+1000);
 				count_1000 += 1;
 				String to = Integer.toString(juice.getMoney());
@@ -120,7 +119,7 @@ public class CoinUI extends JFrame {
 				JOptionPane.showMessageDialog(null, "최대 투입금은 5,000 원입니다.");
 			}
 			if (!(juice.getMoney()+won>5000)) {
-			juice.setCoinWallet(num);
+			juice.setPlusCoin(num);
 			juice.setMoney(juice.getMoney()+won);
 			String to = Integer.toString(juice.getMoney());
 			System.out.println(to);

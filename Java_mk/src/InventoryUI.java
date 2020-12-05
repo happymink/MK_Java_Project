@@ -7,10 +7,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class InventoryUI extends JFrame {
 	Container container = getContentPane();
@@ -20,17 +22,16 @@ public class InventoryUI extends JFrame {
 	String stockname;
 	private JTextField textField;
 	JLabel lblNewLabel;
-	
+	Queue1 q = new Queue1();
 	public InventoryUI(){
-		
-		
-			Object [][] coffeearr = new Object [1][5]; 
+
+		Object [][] juicearr = new Object [1][5]; 
 					
-				coffeearr[0][0]= juice.getStock(0);
-				coffeearr[0][1]= juice.getStock(1);
-				coffeearr[0][2]= juice.getStock(2);
-				coffeearr[0][3]= juice.getStock(3);
-				coffeearr[0][4]= juice.getStock(4);
+				juicearr[0][0]= juice.getStock(0);
+				juicearr[0][1]= juice.getStock(1);
+				juicearr[0][2]= juice.getStock(2);
+				juicearr[0][3]= juice.getStock(3);
+				juicearr[0][4]= juice.getStock(4);
 				
 		
 		
@@ -48,7 +49,10 @@ public class InventoryUI extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		table = new JTable(coffeearr , product_name);
+		DefaultTableModel model = new DefaultTableModel(juicearr , product_name);
+		JTable table = new JTable(model);
+		//table = new JTable(model);
+		model.fireTableDataChanged();
 		table.setBounds(39, 25, 250, 150);
 		panel.add(table);
 		
@@ -62,41 +66,142 @@ public class InventoryUI extends JFrame {
 		panel.add(lblNewLabel_1);
 		
 		JPanel panel_1 = new JPanel();	//물품 주문 패널
-		panel_1.setBounds(0, 180, 534, 341);
+		panel_1.setBounds(0, 180, 534, 371);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		
-		JButton btnNewButton = new JButton("\uC6D0\uB450");  //원두 버튼
-		btnNewButton.setBounds(30, 61, 80, 40);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnNewButton0 = new JButton(juice.getproductname(0));  //물품 0 생수  버튼
+		btnNewButton0.setBounds(30, 61, 80, 40);
+		btnNewButton0.setFont(new Font("굴림", Font.BOLD, 10));
+		btnNewButton0.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+			//	new InventoryUI();
+				if (juice.getStock(0) >= 3) {
+					JOptionPane.showMessageDialog(null, "주문 실패 <현재 최대 재고입니다>");
+				}
+				else {
+				int ans = JOptionPane.showConfirmDialog(null, "<"+juice.getproductname(0)+"> 재고를 주문하시겠습니까?\n",
+						"재고 주문 확인 창", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
 				
-				lblNewLabel.setText("를 주문하실건가요? 수량을 입력하세요.");
-
+				if (ans == 0) {
+					juice.PlusStock(juice.getproductname(0));
+					JOptionPane.showMessageDialog(null, "주문 성공");
+				}
+					
+				}// pressing OK button
+			
 			}
 		});
-		panel_1.add(btnNewButton);
-		
+
+		JButton btnNewButton1 = new JButton(juice.getproductname(1));  //물품 1(일반 커피) 버튼
+		btnNewButton1.setBounds(120, 61, 80, 40);
+		btnNewButton1.setFont(new Font("굴림", Font.BOLD, 10));
+		btnNewButton1.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+			//	new InventoryUI();
+				if (juice.getStock(1) >= 3) {
+					JOptionPane.showMessageDialog(null, "주문 실패 <현재 최대 재고입니다>");
+				}
+				else {
+				int ans = JOptionPane.showConfirmDialog(null, "<"+juice.getproductname(1)+"> 재고를 주문하시겠습니까?\n",
+						"재고 주문 확인 창", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+				
+				if (ans == 0) {
+					juice.PlusStock(juice.getproductname(1));
+					JOptionPane.showMessageDialog(null, "주문 성공");
+				}
+					
+				}// pressing OK button
+			}
+			
+		});
+		JButton btnNewButton2 = new JButton(juice.getproductname(2));  //물품 2(이온 음료) 버튼
+		btnNewButton2.setBounds(210, 61, 80, 40);
+		btnNewButton2.setFont(new Font("굴림", Font.BOLD, 10));
+		btnNewButton2.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+			//	new InventoryUI();
+				if (juice.getStock(2) >= 3) {
+					JOptionPane.showMessageDialog(null, "주문 실패 <현재 최대 재고입니다>");
+				}
+				else {
+				int ans = JOptionPane.showConfirmDialog(null, "<"+juice.getproductname(2)+"> 재고를 주문하시겠습니까?\n",
+						"재고 주문 확인 창", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+				
+				if (ans == 0) {
+					juice.PlusStock(juice.getproductname(2));
+					JOptionPane.showMessageDialog(null, "주문 성공");
+				}
+					
+				}// pressing OK button
+			}
+			
+		});
+		JButton btnNewButton3 = new JButton(juice.getproductname(3));  //물품 3(고급 커피) 버튼
+		btnNewButton3.setBounds(300, 61, 80, 40);
+		btnNewButton3.setFont(new Font("굴림", Font.BOLD, 10));
+		btnNewButton3.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+			//	new InventoryUI();
+				if (juice.getStock(3) >= 3) {
+					JOptionPane.showMessageDialog(null, "주문 실패 <현재 최대 재고입니다>");
+				}
+				else {
+				int ans = JOptionPane.showConfirmDialog(null, "<"+juice.getproductname(3)+"> 재고를 주문하시겠습니까?\n",
+						"재고 주문 확인 창", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+				
+				if (ans == 0) {
+					juice.PlusStock(juice.getproductname(3));
+					JOptionPane.showMessageDialog(null, "주문 성공");
+				}
+					
+				}// pressing OK button
+			
+			}
+		});
+		JButton btnNewButton4 = new JButton(juice.getproductname(4));  //물품 4 (탄산 음료) 버튼
+		btnNewButton4.setBounds(390, 61, 80, 40);
+		btnNewButton4.setFont(new Font("굴림", Font.BOLD, 10));
+		btnNewButton4.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+			//	new InventoryUI();
+				if (juice.getStock(4) >= 3) {
+					JOptionPane.showMessageDialog(null, "주문 실패 <현재 최대 재고입니다>");
+				}
+				else {
+				int ans = JOptionPane.showConfirmDialog(null, "<"+juice.getproductname(4)+"> 재고를 주문하시겠습니까?\n",
+						"재고 주문 확인 창", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+				
+				if (ans == 0) {
+					juice.PlusStock(juice.getproductname(4));
+					JOptionPane.showMessageDialog(null, "주문 성공");
+				}
+				}
+				}// pressing OK button
+			
+			
+		});
+		panel_1.add(btnNewButton0);
+		panel_1.add(btnNewButton1);
+		panel_1.add(btnNewButton2);
+		panel_1.add(btnNewButton3);
+		panel_1.add(btnNewButton4);
+	
 		JLabel lblNewLabel_2 = new JLabel("\uBB3C\uD488\uC8FC\uBB38");   //물품 주문
-		lblNewLabel_2.setFont(new Font("굴림", Font.BOLD, 12));
-		lblNewLabel_2.setBounds(30, 30, 100, 20);
+		lblNewLabel_2.setFont(new Font("굴림", Font.BOLD, 14));
+		lblNewLabel_2.setBounds(30, 30, 100, 15);
 		panel_1.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("\uC8FC\uBB38\uC218\uB7C9\uC785\uB825 :");  ///주문 수량 입력
-		lblNewLabel_3.setFont(new Font("굴림", Font.BOLD, 12));
-		lblNewLabel_3.setBounds(30, 207, 100, 20);
-		panel_1.add(lblNewLabel_3);
 		
-		textField = new JTextField();		
-		textField.setBounds(137, 237, 116, 21);
-		panel_1.add(textField);
-		textField.setColumns(10);
-		
-		lblNewLabel = new JLabel("123");
+		lblNewLabel = new JLabel("관리자 기능"); //관리자 기능
 		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 14));
-		lblNewLabel.setBounds(30, 285, 450, 30);
+		lblNewLabel.setBounds(30, 115, 450, 30);
 		panel_1.add(lblNewLabel);
 		
 		
@@ -106,21 +211,100 @@ public class InventoryUI extends JFrame {
 		panel_3.setLayout(null);
 		
 		
-		JButton btnNewButton1 = new JButton("주문");  //주문 버튼
-		btnNewButton1.setBounds(30, 310, 80, 40);
-		panel_1.add(btnNewButton1);
-		
-		JButton btnNewButton2 = new JButton("비밀번호 변경");  //비밀번호 변경 버튼
-		btnNewButton2.setBounds(120, 310, 80, 40);
-		btnNewButton2.addActionListener(new ActionListener() {
+		JButton btnNewButton_1 = new JButton("메뉴 변경");  //메뉴 변경 버튼
+		btnNewButton_1.setBounds(30, 150, 80, 40);
+		btnNewButton_1.setFont(new Font("굴림", Font.BOLD, 10));
+		btnNewButton_1.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				
+				new Editmenu();
+			
 			}
 		});
-		panel_1.add(btnNewButton2);
+		panel_1.add(btnNewButton_1);
 		
+		JButton btnNewButton_2 = new JButton("새로고침");  //새로고침 버튼
+		btnNewButton_2.setBounds(120, 150, 80, 40);
+		btnNewButton_2.setFont(new Font("굴림", Font.BOLD, 10));
+		btnNewButton_2.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				new InventoryUI();
+
+			
+			}
+		});
+		panel_1.add(btnNewButton_2);
+		JButton btnNewButton_4 = new JButton("잔돈 확인");  //잔돈 확인버튼
+		btnNewButton_4.setBounds(300, 150, 80, 40);
+		btnNewButton_4.setFont(new Font("굴림", Font.BOLD, 10));
+		btnNewButton_4.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				String text;
+				text = "10: " + juice.getCoinWallet(0)+"장  "
+						+"50: " + juice.getCoinWallet(1)+"장  "
+						+"100: " + juice.getCoinWallet(2)+"장  "
+						+"500: " + juice.getCoinWallet(3)+"장  "
+						+"1000 :" + juice.getCoinWallet(4)+"장  ";
+			JOptionPane.showMessageDialog(null, text);
+			}
+		});
+		panel_1.add(btnNewButton_4);
+		
+		
+		JButton btnNewButton_3 = new JButton("금액 회수");  //수금 확인
+		btnNewButton_3.setBounds(210, 150, 80, 40);
+		btnNewButton_3.setFont(new Font("굴림", Font.BOLD, 10));
+		btnNewButton_3.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "회수 가능 금액은 <"+juice.getProfit_money()+"> 원 입니다");
+				new takeback_CoinUI();
+//				int [] coin = {10,50,100,500,1000};	
+//				int total= juice.getProfit_money();
+//				String text = "";
+//				
+//				if (juice.getProfit_money()== 0) {
+//					JOptionPane.showMessageDialog(null, "회수할 돈이 없습니다");
+//				}
+//				
+//				else {
+//				for (int i=4; i>-1; i--) {
+//					int count = 0;
+//					
+//					while(total / coin[i] >0) {
+//						if (juice.getCoinWallet(i)<=5)
+//							
+//						count++;
+//						total -= coin[i];
+//						juice.setMinusCoin(i);
+//					}
+//					
+//					
+//					text = text + coin[i] + "원권 :" + count +" 개. ";		//잔돈이 어떤 화폐로 반환됬는지 text저장
+//					
+//					}
+//				
+//				JOptionPane.showMessageDialog(null, "잔돈이 반환되었습니다");
+//				JOptionPane.showMessageDialog(null,text);
+//				
+//				juice.setProfit_money(0);
+//
+//				
+//				}
+//				
+//			System.out.println("천원권 개수"+juice.getCoinWallet(4));
+//			System.out.println("500원권 개수"+juice.getCoinWallet(3));
+//			System.out.println("100원권 개수"+juice.getCoinWallet(2));
+//			System.out.println("50원권 개수"+juice.getCoinWallet(1));
+//			System.out.println("10원권 개수"+juice.getCoinWallet(0));
+			}
+		});
+		panel_1.add(btnNewButton_3);
 	}
 	
 }
