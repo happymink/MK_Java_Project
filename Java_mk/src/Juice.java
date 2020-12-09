@@ -6,21 +6,26 @@
 		private static String name;
 		private static int price;
 		private static int money;
-		private static int Profit_money;
+		private static int Profit_money = 1000*5 + 500*5 + 100*5 + 50*5 + 10*5;
 		private static String password="12345";
 		private int index;
-		private String [] product_name = {"생수", "일반 커피", "이온 음료", "고급 커피", "탄산 음료"};
-		private int [] product_price = {450, 500, 550, 700, 750}; 
+		private static String [] product_name = {"생수", "일반 커피", "이온 음료", "고급 커피", "탄산 음료"};
+		private static int [] product_price = {450, 500, 550, 700, 750}; 
 		private static int [] CoinWallet = {5,5,5,5,5};
 		private static int [] Stock = {3,3,3,3,3};
 		
-		LinkedList Stock0 = new LinkedList();    // 연결 리스트 생성
-        LinkedList Stock1 = new LinkedList();
-        LinkedList Stock2 = new LinkedList();
-        LinkedList Stock3 = new LinkedList();
-        LinkedList Stock4 = new LinkedList();
+		LinkedList Stock0 = new LinkedList(3);    // 재고 수량을 연결 리스트 생성자로 생성
+        LinkedList Stock1 = new LinkedList(3);
+        LinkedList Stock2 = new LinkedList(3);
+        LinkedList Stock3 = new LinkedList(3);
+        LinkedList Stock4 = new LinkedList(3);
         
       
+        public void setCoinwallet(int a) {
+        	for (int i = 0 ; i<5 ; i++) {
+        		this.Stock[i] = a;
+        	}
+        }
         
 		public void setindex(int index) {
 			this.index = index;

@@ -23,8 +23,11 @@ public class InventoryUI extends JFrame {
 	private JTextField textField;
 	JLabel lblNewLabel;
 	Queue1 q = new Queue1();
+	
 	public InventoryUI(){
-
+		
+		/*		 JTable 사용을 위한 오브젝트 배열 선언		 */
+		
 		Object [][] juicearr = new Object [1][5]; 
 					
 				juicearr[0][0]= juice.getStock(0);
@@ -32,12 +35,12 @@ public class InventoryUI extends JFrame {
 				juicearr[0][2]= juice.getStock(2);
 				juicearr[0][3]= juice.getStock(3);
 				juicearr[0][4]= juice.getStock(4);
-				
-		
-		
 		
 		Object product_name[] = {juice.getproductname(0),juice.getproductname(1),juice.getproductname(2),juice.getproductname(3),juice.getproductname(4)}; 
-
+		
+		
+		/*프레임 사이즈 및 기타 기능 설정*/
+		
 		setSize(550, 620);
 		setVisible(true);
 		setLocation(900, 100);
@@ -49,6 +52,7 @@ public class InventoryUI extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
+		/*	JTable 선언 	*/
 		DefaultTableModel model = new DefaultTableModel(juicearr , product_name);
 		JTable table = new JTable(model);
 		//table = new JTable(model);
@@ -59,6 +63,10 @@ public class InventoryUI extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(39, 57, 450, 120);
 		panel.add(scrollPane);
+		
+		
+	
+		/*===================== 재고 주문 기능 ======================*/
 		
 		JLabel lblNewLabel_1 = new JLabel("\uC7AC\uACE0\uD604\uD669");  //재고 현황
 		lblNewLabel_1.setFont(new Font("굴림", Font.BOLD, 12));
@@ -165,7 +173,7 @@ public class InventoryUI extends JFrame {
 			}
 		});
 		JButton btnNewButton4 = new JButton(juice.getproductname(4));  //물품 4 (탄산 음료) 버튼
-		btnNewButton4.setBounds(390, 61, 80, 40);
+		btnNewButton4.setBounds(390, 61, 100, 40);
 		btnNewButton4.setFont(new Font("굴림", Font.BOLD, 10));
 		btnNewButton4.addActionListener(new ActionListener() {
 			
@@ -187,19 +195,20 @@ public class InventoryUI extends JFrame {
 			
 			
 		});
-		panel_1.add(btnNewButton0);
-		panel_1.add(btnNewButton1);
-		panel_1.add(btnNewButton2);
-		panel_1.add(btnNewButton3);
-		panel_1.add(btnNewButton4);
 	
-		JLabel lblNewLabel_2 = new JLabel("\uBB3C\uD488\uC8FC\uBB38");   //물품 주문
+		/*===================== 재고 주문 기능  END======================*/
+		
+		
+		
+		
+		/* 물품 주문 레이블 */
+		JLabel lblNewLabel_2 = new JLabel("\uBB3C\uD488\uC8FC\uBB38");   
 		lblNewLabel_2.setFont(new Font("굴림", Font.BOLD, 14));
 		lblNewLabel_2.setBounds(30, 30, 100, 15);
 		panel_1.add(lblNewLabel_2);
 		
-		
-		lblNewLabel = new JLabel("관리자 기능"); //관리자 기능
+		/*관리자 기능 레이블*/
+		lblNewLabel = new JLabel("관리자 기능"); 
 		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 14));
 		lblNewLabel.setBounds(30, 115, 450, 30);
 		panel_1.add(lblNewLabel);
@@ -210,8 +219,8 @@ public class InventoryUI extends JFrame {
 		getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
-		
-		JButton btnNewButton_1 = new JButton("메뉴 변경");  //메뉴 변경 버튼
+		/*메뉴 변경 버튼 */
+		JButton btnNewButton_1 = new JButton("메뉴 변경");
 		btnNewButton_1.setBounds(30, 150, 80, 40);
 		btnNewButton_1.setFont(new Font("굴림", Font.BOLD, 10));
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -222,9 +231,9 @@ public class InventoryUI extends JFrame {
 			
 			}
 		});
-		panel_1.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("새로고침");  //새로고침 버튼
+		/*새로고침 버튼 */
+		JButton btnNewButton_2 = new JButton("새로고침");
 		btnNewButton_2.setBounds(120, 150, 80, 40);
 		btnNewButton_2.setFont(new Font("굴림", Font.BOLD, 10));
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -236,7 +245,7 @@ public class InventoryUI extends JFrame {
 			
 			}
 		});
-		panel_1.add(btnNewButton_2);
+	
 		JButton btnNewButton_4 = new JButton("잔돈 확인");  //잔돈 확인버튼
 		btnNewButton_4.setBounds(300, 150, 80, 40);
 		btnNewButton_4.setFont(new Font("굴림", Font.BOLD, 10));
@@ -253,8 +262,7 @@ public class InventoryUI extends JFrame {
 			JOptionPane.showMessageDialog(null, text);
 			}
 		});
-		panel_1.add(btnNewButton_4);
-		
+	
 		
 		JButton btnNewButton_3 = new JButton("금액 회수");  //수금 확인
 		btnNewButton_3.setBounds(210, 150, 80, 40);
@@ -264,47 +272,43 @@ public class InventoryUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "회수 가능 금액은 <"+juice.getProfit_money()+"> 원 입니다");
 				new takeback_CoinUI();
-//				int [] coin = {10,50,100,500,1000};	
-//				int total= juice.getProfit_money();
-//				String text = "";
-//				
-//				if (juice.getProfit_money()== 0) {
-//					JOptionPane.showMessageDialog(null, "회수할 돈이 없습니다");
-//				}
-//				
-//				else {
-//				for (int i=4; i>-1; i--) {
-//					int count = 0;
-//					
-//					while(total / coin[i] >0) {
-//						if (juice.getCoinWallet(i)<=5)
-//							
-//						count++;
-//						total -= coin[i];
-//						juice.setMinusCoin(i);
-//					}
-//					
-//					
-//					text = text + coin[i] + "원권 :" + count +" 개. ";		//잔돈이 어떤 화폐로 반환됬는지 text저장
-//					
-//					}
-//				
-//				JOptionPane.showMessageDialog(null, "잔돈이 반환되었습니다");
-//				JOptionPane.showMessageDialog(null,text);
-//				
-//				juice.setProfit_money(0);
-//
-//				
-//				}
-//				
-//			System.out.println("천원권 개수"+juice.getCoinWallet(4));
-//			System.out.println("500원권 개수"+juice.getCoinWallet(3));
-//			System.out.println("100원권 개수"+juice.getCoinWallet(2));
-//			System.out.println("50원권 개수"+juice.getCoinWallet(1));
-//			System.out.println("10원권 개수"+juice.getCoinWallet(0));
 			}
 		});
+		
+		JButton btnNewButton_5 = new JButton("잔돈 초기화");  //잔돈 초기화
+		btnNewButton_5.setBounds(390, 150, 100, 40);
+		btnNewButton_5.setFont(new Font("굴림", Font.BOLD, 10));
+		btnNewButton_5.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				int ans = JOptionPane.showConfirmDialog(null, "모든 잔돈을 회수하고 5개씩 남겨둡니다",
+						"잔돈 초기화", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+				
+				if (ans == 0) {
+					for(int i = 0 ; i<5 ; i++) {								//YES >> CoinWallet 모든 요소를 5로 초기화 한 후 이익금도 기본으로 셋팅
+						juice.setCoinWallet(i, 5);
+					}
+					juice.setProfit_money(1000*5 + 500*5 + 100*5 + 50*5 + 10*5);
+					JOptionPane.showMessageDialog(null, "초기화 성공");
+				}
+			}
+		});
+		
+		/*	패널에 버튼 추가    */
+		
+		panel_1.add(btnNewButton0);
+		panel_1.add(btnNewButton1);
+		panel_1.add(btnNewButton2);
+		panel_1.add(btnNewButton3);
+		panel_1.add(btnNewButton4);
+	
+		panel_1.add(btnNewButton_1);
+		panel_1.add(btnNewButton_2);
 		panel_1.add(btnNewButton_3);
+		panel_1.add(btnNewButton_4);
+		panel_1.add(btnNewButton_5);
+
 	}
 	
 }

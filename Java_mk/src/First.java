@@ -132,17 +132,6 @@ public class First {
 		
 		juice.CreatList();
 		
-//		stock0.Creat_Queue(3);
-//		stock1.Creat_Queue(3);
-//		stock2.Creat_Queue(3);
-//		stock3.Creat_Queue(3);
-//		stock4.Creat_Queue(3);
-//		
-//		stock0.fillQueue(3);
-//		stock1.fillQueue(3);
-//		stock2.fillQueue(3);
-//		stock3.fillQueue(3);
-//		stock4.fillQueue(3);
 		/*ㅡㅡㅡㅡ              ㅡㅡㅡㅡㅡㅡㅡ                         ㅡㅡㅡㅡㅡ*/
 		
 		JButton button = new JButton("\u25CF"); //1번 상품(0) >>생수
@@ -155,6 +144,7 @@ public class First {
 				{
 					JOptionPane.showMessageDialog(null, juice.getproductname(0)+"재고가 부족합니다");
 					viewProductLabel.setText("");
+					
 				}
 				else
 					showlabel(juice.getproductname(0),juice.getproductprice(0),0);
@@ -424,7 +414,7 @@ public class First {
 		
 			if (ans == 0) {
 				
-				//재고 -1
+				
 				//판매 수량 +1
 				try 
 				{
@@ -448,16 +438,16 @@ public class First {
 						juice.Stock4.deleteNode();
 						juice.setMiounsStock(4);
 					}
-					else {
-						JOptionPane.showMessageDialog(null, "Miuns_stock 오류");
-					}
+					else JOptionPane.showMessageDialog(null, "선택이 잘못되었습니다");
+					
+					/*주문 결제가 완료되면 재고, 잔액, 이익금(수익금) 갱신*/
 					juice.setMoney(juice.getMoney()-juice.getPrice());
 					juice.setProfit_money(juice.getPrice()+juice.getProfit_money());
 					JOptionPane.showMessageDialog(null, "결제 성공!");
 				}
 				catch(Exception e)
 				{
-					JOptionPane.showMessageDialog(null, juice.getName()+" 재고가 없습니다.");
+					JOptionPane.showMessageDialog(null, juice.getName()+" 재고가 없습니다.");				//deletNode 가 오류가 날 경우 예외처리  
 					
 				}
 				
@@ -484,7 +474,7 @@ public class First {
 			int option = JOptionPane.showOptionDialog(null, panel, "비밀번호 변경",
 			                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
 			                         null, options, options[1]);
-			if(option == 0) // pressing OK button
+			if(option == 0) // 변경 버튼이 눌렸을 때 
 			{
 			    char[] password = pass.getPassword();
 			    String pasww = new String(password);   

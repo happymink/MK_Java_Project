@@ -33,18 +33,13 @@ public class LinkedList {
     public LinkedList() {
         head = null;    // head 노드 초기화
     }
-    
-    // Node 삽입 (중간에 삽입)
-    public void insertNode(ListNode preNode, String data) {       
-        ListNode newNode = new ListNode(data);    // 새로운 노드 생성
-        
-        // preNode.link는 preNode의 다음 노드이므로,
-        // newNode.link = preNode.link는 새로운 노드의 link가 preNode의 다음 노드를 참조하도록 함. 
-        newNode.link = preNode.link;
-        
-        // preNode의 link가 새로운 노드를 참조하도록 함.
-        // 최종적으로 'preNode -> newNode -> 기존 preNode의 다음 노드 '이렇게 구성됨.
-        preNode.link = newNode;
+ 
+    // a만큼 수량 생성자
+    public LinkedList(int a) {
+    	for (int i = 0; i<a ; i++)
+    	{
+    		insertNode(a+"Stock");
+    	}
     }
     
     // Node 삽입 (마지막에 삽입)
@@ -71,45 +66,6 @@ public class LinkedList {
         }
     }
     
-    // Node 삭제(중간 노드 삭제)
-    public void deleteNode(String data) {
-        // preNode는 head가 가리키는 노드를 할당
-        ListNode preNode = head;
-        // tempNode는 head가 가리키는 노드의 다음 노드. 즉, preNode의 다음 노드를 할당
-        ListNode tempNode = head.link; 
-        
-        // 주어진 데이터가 preNode의 데이터와 일치하는 경우
-        // 즉, 첫번째 노드의 데이터와 일치하는 경우
-        if(data.equals( preNode.getData() )) {
-            // head는 preNode의 다음 노드를 참조하도록 함.
-            head = preNode.link;
-            // preNode의 link는 null을 할당하여 연결을 끊음.
-            preNode.link = null;
-        } else {
-            // tempNode가 null일 때까지 반복하여 탐색
-            while(tempNode != null) {
-                // 주어진 데이터와 temp 노드의 데이터가 일치할 경우.
-                if(data.equals( tempNode.getData() )) {
-                    // tempNode가 마지막 노드인 경우
-                    if(tempNode.link == null) {
-                        preNode.link = null;
-                    } else {
-                        // tempNode가 마지막 노드가 아닌 경우
-                        // preNode의 link는 tempNode의 다음 노드를 참조.
-                        // tempNode의 link는 null을 할당하여 다음 노드로의 연결을 끊음.
-                        preNode.link = tempNode.link;
-                        tempNode.link = null;
-                    }
-                    break;
-                } else {
-                    // 데이터가 일치하지 않을 경우 
-                    // preNode에 tempNode를 할당하고, tempNode에 다음 노드 할당.
-                    preNode = tempNode;
-                    tempNode = tempNode.link;
-                }
-            }
-        }
-    }
     
     // Node 삭제(마지막 노드 삭제)
     public void deleteNode() {
@@ -147,55 +103,7 @@ public class LinkedList {
         }
     }
     
-    // Node 탐색
-    public ListNode searchNode(String data) {
-        ListNode tempNode = this.head;    // temp 노드에 head가 가리키는 첫 번째 할당.
-        
-        // temp 노드가 null이 아닐 때까지 반복하여 탐색
-        while(tempNode != null) {
-            // 주어진 데이터와 temp 노드의 데이터가 일치할 경우 해당 temp 노드를 return
-            if(data.equals(tempNode.getData())) {
-                return tempNode;
-            } else {
-                // 데이터가 일치하지 않을 경우 temp 노드에 다음 노드 할당.
-                tempNode = tempNode.link;
-            }
-        }
-        
-        return tempNode;
     }
     
-    // 리스트의 노드를 역순으로 구성
-    public void reverseList() {
-        ListNode nextNode = head;    // head가 참조하는 첫번째 노드를 할당.
-        ListNode currentNode = null;
-        ListNode preNode = null;
-        
-        // nextNode가 순차적으로 이동하며 currentNode의 link가 preNode를 참조하도록 함.
-        // 1) preNode를 currentNode 위치로 이동
-        // 2) currentNode는 nextNode 위치로 이동
-        // 3) nextNode는 다음 노드 위치로 이동
-        // 4) currentNode의 link는 preNode를 참조하도록 함
-        while(nextNode != null) {
-            preNode = currentNode;    // preNode는 currentNode 위치로 이동
-            currentNode = nextNode;    // currentNode는 nextNode 위치로 이동
-            nextNode = nextNode.link;    // nextNode는 다음 노드 위치로 이동
-            currentNode.link = preNode;    // currentNode의 link에 preNode를 할당하여 역순으로 설정
-        }
-        
-        head = currentNode;    // currentNode가 마지막 노드를 가리킬 때, head는 currentNode를 참조하도록 함.
-    }
-    
-    // 연결 리스트에 저장된 모든 데이터를 출력
-    public void printList() {
-        ListNode tempNode = this.head;    // tempNode에 head가 가리키는 첫번째 노드를 할당
-        
-        // tempNode가 null이 아닐 때까지 반복하여 출력
-        while(tempNode != null) {
-            System.out.print(tempNode.getData() + " ");
-            tempNode = tempNode.link;    // temp 노드에 다음 노드(tempNode.link) 할당.
-        }
-        System.out.println();
-    }
  
-}
+ 

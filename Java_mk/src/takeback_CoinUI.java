@@ -31,7 +31,7 @@ public class takeback_CoinUI extends JFrame {
 			int count = juice.getCoinWallet(num) -5;				//count는 5개를 남기고 회수 가능한 동전의 개수
 			SpinnerModel model = new SpinnerNumberModel(0, // 초기값
 					                0,        // 최소값
-					              count-1,      // 최대값
+					              count,      // 최대값
 					                1);       // 증가값
 			JSpinner spinner = new JSpinner(model);
 			JPanel panel = new JPanel();
@@ -45,13 +45,16 @@ public class takeback_CoinUI extends JFrame {
 			if(option == 0) {
 				System.out.println("계산 전 프로핏 머니 :"+juice.getProfit_money());
 				Object value = 	spinner.getValue();										//JSpinner 의 TextField 값을  Object 객체로 저장 하고 integer 형 변수로 변환하여 저장 
-				int number = Integer.parseInt(value.toString());
-				
-			
+				int number = Integer.parseInt(value.toString());	
+				if(juice.getProfit_money() - coin_wallet[num]*number < 0) {				//이익금이 요청한 금액보다 적으면 오류 발생
+					JOptionPane.showMessageDialog(null, "<반환 실패> 잔고가 부족합니다");
+				}
+				else {
 				juice.setCoinWallet(num,juice.getCoinWallet(num)-number);
 				juice.setProfit_money(juice.getProfit_money()-(coin_wallet[num]*number));
 				System.out.println("계산 후 프로핏 머니 :"+juice.getProfit_money());
-			}// pressing OK button
+				JOptionPane.showMessageDialog(null, "<반환 성공>");
+				}}// pressing OK button
 		}
 	}
 		
