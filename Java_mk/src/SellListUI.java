@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class SellListUI extends JFrame{
 	Juice juice = new Juice();
-
+	SellDB sdb = new SellDB();
 
 public SellListUI() {
 	setSize(550, 620);
@@ -31,8 +31,12 @@ public SellListUI() {
 	today_sell[0][3]= juice.getsell_list(3);
 	today_sell[0][4]= juice.getsell_list(4);
 	
+	
+	String [][] data = sdb.getlist();
+	String[] headers = new String[] {"상품 명", "가격", "시간"};
+	
 	JPanel panel = new JPanel();
-	panel.setBounds(0, 0, 534, 400);
+	panel.setBounds(0, 0, 534, 620);
 	getContentPane().add(panel);
 	panel.setLayout(null);
 	
@@ -53,8 +57,20 @@ public SellListUI() {
 	scrollPane.setBounds(39, 57, 450, 120);
 	panel.add(scrollPane);
 	
+	/*	판매 히스토리 JTable 선언*/
+	DefaultTableModel model2 = new DefaultTableModel(data , headers);
+	JTable table2 = new JTable(model2);
+	//table = new JTable(model);
+	model.fireTableDataChanged();
+	table2.setBounds(39, 200, 250, 150);
+	panel.add(table2);
+	
+	JScrollPane scrollPane2 = new JScrollPane(table2);
+	scrollPane2.setBounds(39, 200, 450, 120);
+	panel.add(scrollPane2);
+	
 	JButton btnNewButton0 = new JButton("매출 확인");  //오늘의 매출 확인 버튼
-	btnNewButton0.setBounds(40, 180, 80, 40);
+	btnNewButton0.setBounds(40, 350, 80, 40);
 	btnNewButton0.setFont(new Font("굴림", Font.BOLD, 10));
 	btnNewButton0.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {

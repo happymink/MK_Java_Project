@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,7 +41,7 @@ public class First {
 	Juice juice = null;
 	CoinUI coin = null;
 	InventoryUI inventory =null;
-
+	SellDB sdb = null;
 	public int money = 0;
 	boolean can_buy = false;
 	String menu="";
@@ -48,8 +50,9 @@ public class First {
 	String basic_pw = "";
 	JLabel viewProductLabel;
 	JLabel lblNewLabel;
-		private JFrame frame;
-	Queue1 q = null;
+	private JFrame frame;
+	
+	SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 	/*		각 재고당  최대 3개 한정생성		*/
 	
 
@@ -453,6 +456,8 @@ public class First {
 					/*주문 결제가 완료되면 재고, 잔액, 이익금(수익금) 갱신*/
 					juice.setMoney(juice.getMoney()-juice.getPrice());
 					juice.setProfit_money(juice.getPrice()+juice.getProfit_money());
+					Date time = new Date(); //현재 시간 생성
+					sdb.createList(juice.getName(), Integer.toString(juice.getPrice()), format1.format(time));
 					JOptionPane.showMessageDialog(null, "결제 성공!");
 				}
 				catch(Exception e)
