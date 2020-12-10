@@ -80,6 +80,7 @@ public class First {
 	private void initialize() {
 		juice = new Juice();
 		frame = new JFrame();
+		new SellListUI();  //연습용 제거바람
 		inventory = new InventoryUI();
 		frame.setSize(477, 546);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -415,28 +416,37 @@ public class First {
 			if (ans == 0) {
 				
 				
-				//판매 수량 +1
+		   	/******************************
+			 * stock deleteNode 로 재고 가감 *
+			 * setmiounsStock 으로 재고 가감*
+			 * setsell_list 로 판매수량 증가 *
+			 * ******************************/
 				try 
 				{
 					if (juice.getName()==juice.getproductname(0) && !(juice.getStock(0)==0)) {
 						juice.Stock0.deleteNode();
 						juice.setMiounsStock(0);
+						juice.setsell_list(0,juice.getsell_list(0)+1);
 					}
 					else if(juice.getName()==juice.getproductname(1)&& !(juice.getStock(1)==0)){
 						juice.Stock1.deleteNode();
 						juice.setMiounsStock(1);
+						juice.setsell_list(1,juice.getsell_list(1)+1);
 					}
 					else if(juice.getName()==juice.getproductname(2)&& !(juice.getStock(2)==0)) {
 						juice.Stock2.deleteNode();
 						juice.setMiounsStock(2);
+						juice.setsell_list(2,juice.getsell_list(2)+1);
 					}
 					else if(juice.getName()==juice.getproductname(3)&& !(juice.getStock(3)==0)) {
 						juice.Stock3.deleteNode();
 						juice.setMiounsStock(3);
+						juice.setsell_list(3,juice.getsell_list(3)+1);
 					}
 					else if(juice.getName()==juice.getproductname(4)&& !(juice.getStock(4)==0)) {
 						juice.Stock4.deleteNode();
 						juice.setMiounsStock(4);
+						juice.setsell_list(4,juice.getsell_list(4)+1);
 					}
 					else JOptionPane.showMessageDialog(null, "선택이 잘못되었습니다");
 					
@@ -456,7 +466,7 @@ public class First {
 			
 			
 			}
-			viewProductLabel.setText("");
+			viewProductLabel.setText("");					//결제가 끝나면 show라벨을 초기화 , 금액을 뺀 남은 잔돈을 표시
 			String to = Integer.toString(juice.getMoney());
 			lblNewLabel.setText(to);
 			juice.setName(null);

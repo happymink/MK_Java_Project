@@ -294,6 +294,16 @@ public class InventoryUI extends JFrame {
 				}
 			}
 		});
+		JButton btnNewButton_6 = new JButton("판매 리스트");  //판매 리스트
+		btnNewButton_6.setBounds(30, 210, 80, 40);
+		btnNewButton_6.setFont(new Font("굴림", Font.BOLD, 9));
+		btnNewButton_6.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				new SellListUI();
+			}
+		});
 		
 		/*	패널에 버튼 추가    */
 		
@@ -308,6 +318,7 @@ public class InventoryUI extends JFrame {
 		panel_1.add(btnNewButton_3);
 		panel_1.add(btnNewButton_4);
 		panel_1.add(btnNewButton_5);
+		panel_1.add(btnNewButton_6);
 
 	}
 	

@@ -11,8 +11,9 @@
 		private int index;
 		private static String [] product_name = {"생수", "일반 커피", "이온 음료", "고급 커피", "탄산 음료"};
 		private static int [] product_price = {450, 500, 550, 700, 750}; 
-		private static int [] CoinWallet = {5,5,5,5,5};
+		private static int [] CoinWallet = {0,0,0,0,0};
 		private static int [] Stock = {3,3,3,3,3};
+		private static int [] sell_list = {0,0,0,0,0};
 		
 		LinkedList Stock0 = new LinkedList(3);    // 재고 수량을 연결 리스트 생성자로 생성
         LinkedList Stock1 = new LinkedList(3);
@@ -20,6 +21,14 @@
         LinkedList Stock3 = new LinkedList(3);
         LinkedList Stock4 = new LinkedList(3);
         
+        
+        public int getsell_list(int a) {
+        	return sell_list[a];
+        }
+        
+        public void setsell_list(int index, int a) {
+        	this.sell_list[index] = a;
+        }
       
         public void setCoinwallet(int a) {
         	for (int i = 0 ; i<5 ; i++) {
