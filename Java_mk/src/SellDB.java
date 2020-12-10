@@ -24,7 +24,6 @@ public class SellDB {
 			
 				
 			}
-			System.out.println("데이타를 리스트에 저장 완료");
 			String[][] arr = new String[list.size()][3]; 
 			return list.toArray(arr);
 			
@@ -44,7 +43,6 @@ public class SellDB {
 					+ "VALUE "
 					+"('" +name+"','"+price+"','"+date+"')");
 			insert.executeUpdate();
-			System.out.println("데이터 저장 오완료");
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -74,7 +72,7 @@ public class SellDB {
 			String driver = "com.mysql.cj.jdbc.Driver";
 			String url = "jdbc:mysql://sql9.freemysqlhosting.net:3306/sql9381357";
 			String user = "sql9381357";
-			String pass = "Xay85IWWdL";
+			String pass = "A9UszC2Dbr";
 			Class.forName(driver);
 			Connection con = DriverManager.getConnection(url,user,pass);
 			System.out.println("The Connection Succesful");

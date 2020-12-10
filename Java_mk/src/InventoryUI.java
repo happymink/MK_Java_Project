@@ -22,8 +22,6 @@ public class InventoryUI extends JFrame {
 	String stockname;
 	private JTextField textField;
 	JLabel lblNewLabel;
-	Queue1 q = new Queue1();
-	
 	public InventoryUI(){
 		
 		/*		 JTable 사용을 위한 오브젝트 배열 선언		 */
