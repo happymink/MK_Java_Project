@@ -1,6 +1,4 @@
-/*
- * @ TITLE Linked List (연결 리스트)
- */
+
 // List를 구성하는 Node 클래스
 class ListNode{
     private String data;    // 데이터 저장 변수
@@ -49,14 +47,8 @@ public class LinkedList {
             // head 노드가 null인 경우 새로운 노드를 참조하도록 함
             this.head = newNode;
         } else {
-            // head 노드가 null이 아닌 경우 temp 노드가 head를 참조.
-            // tempNode는 마지막 노드를 찾아서 참조하기 위해 사용.
             ListNode tempNode = head;
-            
-            // temp 노드의 link가 null이 아닐 때까지 다음 노드를 참조.
-            // tempNode.link는 다음 노드를 참조하고 있으므로,
-            // tempNode = tempNode.link는 tempNode에 다음 노드를 참조하도록 하는 것.
-            // while문이 모두 실행되면 tempNode는 가장 마지막 노드를 참조하게 됨.
+     
             while(tempNode.link != null) {
                 tempNode = tempNode.link;    // 다음 노드를 참조
             }
@@ -87,16 +79,11 @@ public class LinkedList {
             preNode = head;
             // tempNode는 head가 가리키는 노드의 다음 노드. 즉, preNode의 다음 노드를 할당
             tempNode = head.link;     
-            
-            // tempNode의 link가 null이 아닐 때까지 한 노드씩 다음 노드로 이동.
-            // preNode는 tempNode를 할당하고
-            // tempNode는 tempNode의 다음 노드를 할당.
-            // 이렇게 하면 preNode는 마지막 노드의 이전 노드가 되고, tempNode는 마지막 노드가 됨.
+         
             while(tempNode.link != null) {
                 preNode = tempNode;
                 tempNode = tempNode.link;
             }
-            
             // preNode의 link를 null로 만들어서 가장 마지막 노드를 삭제
             // 즉, preNode의 다음 노드인 tempNode로의 연결을 끊음.
             preNode.link = null;

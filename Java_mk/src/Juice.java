@@ -15,7 +15,7 @@
 		private static int [] Stock = {3,3,3,3,3};
 		private static int [] sell_list = {0,0,0,0,0};
 		
-		LinkedList Stock0 = new LinkedList(3);    // 재고 수량을 연결 리스트 생성자로 생성
+		LinkedList Stock0 = new LinkedList(3);    // 재고 수량을 LinkedList.java 클래스 생성자로 생성
         LinkedList Stock1 = new LinkedList(3);
         LinkedList Stock2 = new LinkedList(3);
         LinkedList Stock3 = new LinkedList(3);
@@ -165,16 +165,7 @@
 		}
 			
 		
-		public void CreatList() {
-			for (int i = 0; i < 3 ; i++)
-			{
-				Stock0.insertNode(product_name[0]);
-				Stock1.insertNode(product_name[1]);
-				Stock2.insertNode(product_name[2]);
-				Stock3.insertNode(product_name[3]);
-				Stock4.insertNode(product_name[4]);
-			}
-		}
+	
 		
 	}
 

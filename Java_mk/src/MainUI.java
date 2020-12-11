@@ -36,12 +36,12 @@ class ImagePanel extends JPanel{
 }
 
 
-public class First {
+public class MainUI {
 	Juice juice = null;
 	CoinUI coin = null;
 	InventoryUI inventory =null;
 	SellDB sdb = null;
-	public int money = 0;
+	public int money = 0;  //잔돈이 5천원이 넘는지 확인
 	boolean can_buy = false;
 	String menu="";
 	String[] options ; //패스워드 필드 
@@ -59,7 +59,7 @@ public class First {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					First window = new First();
+					MainUI window = new MainUI();
 					
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -70,7 +70,7 @@ public class First {
 	}
 //////////////////////////////////////////////////////////////////
 
-	public First() {
+	public MainUI() {
 		initialize();
 		}
 
@@ -78,6 +78,7 @@ public class First {
 	private void initialize() {
 		juice = new Juice();
 		frame = new JFrame();
+		sdb = new SellDB();
 		inventory = new InventoryUI();
 		frame.setSize(477, 546);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,6 +87,7 @@ public class First {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		inventory.setVisible(false);
+		sdb.createTable();
 		
 		/*              상품 이미지 패널                     */
 		
@@ -236,7 +238,7 @@ public class First {
 				new CoinUI();
 				if (money >= 5000) {
 					System.out.println("5000 초과");
-					JOptionPane.showMessageDialog(null, "기본 알림창입니다.");}
+					JOptionPane.showMessageDialog(null, "최대 투입 금액은 5000원 입니다.");}
 			
 			}});
 		btnNewButton.setFont(new Font("굴림", Font.BOLD, 9));
@@ -274,21 +276,20 @@ public class First {
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String to = Integer.toString(juice.getMoney());
-				System.out.println(juice.getMoney());
 				lblNewLabel.setText(to);
 			}});
 		testpanel.add(btnNewButton_4);
 
 		
 		/************** 비밀번호 변경 버튼 구현 ***************/
-		JButton btnNewButton_5 = new JButton("관리자 비밀번호 변경"); 
+		JButton btnNewButton_5 = new JButton("비밀번호 변경"); 
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				check_password(); 	//비밀번호 변경 함수 호출
 			}
 		});
-		btnNewButton_5.setBounds(320, 83, 114, 45);
+		btnNewButton_5.setBounds(320, 103, 114, 45);
 		testpanel.add(btnNewButton_5);
 		
 		/************** 관리자 모드 버튼 구현 ***************/
@@ -297,11 +298,11 @@ public class First {
 			public void actionPerformed(ActionEvent e) {
 					Join_admin();	//관리자모드 진입 함수 호출
 			}});
-		btnNewButton_1.setBounds(320, 51, 113, 23);
+		btnNewButton_1.setBounds(320, 51, 113, 45);
 		frame.getContentPane().add(btnNewButton_1);
 		
 	}
-		
+		/*****************************************************************************함수 시작*************************************************************************/
 
 		/************ 제품을 선택할 때 상품의 정보가 보이는 함수 	***************/
 		public void showlabel(String name, int price, int index){
@@ -417,8 +418,8 @@ public class First {
 				{
 					if (juice.getName()==juice.getproductname(0) && !(juice.getStock(0)==0)) {
 						juice.Stock0.deleteNode();
-						juice.setMiounsStock(0);
-						juice.setsell_list(0,juice.getsell_list(0)+1);
+						juice.setMiounsStock(0);									//링크드 리스트 노드 삭제
+						juice.setsell_list(0,juice.getsell_list(0)+1);				//DB에 데이터 저장
 					}
 					else if(juice.getName()==juice.getproductname(1)&& !(juice.getStock(1)==0)){
 						juice.Stock1.deleteNode();
@@ -486,7 +487,6 @@ public class First {
 			    String pasww = new String(password);   
 			    String pwPattern ="^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,12}$";	//8자~12자 이내 특수문자 및 영문자 조합 조건 검사 패턴//
 			    Matcher matcher = Pattern.compile(pwPattern).matcher(pasww);
-			    System.out.println(pasww);
 	
 			    if(matcher.find()){			//패턴 조건에 만족할 경우//
 			        juice.setpassword(pasww);
@@ -516,12 +516,10 @@ public class First {
 			    String pasww = new String(password);
 			    if(juice.getpassword().equals(pasww))
 			    {
-			    	 System.out.println(new String(password)==juice.getpassword());
 			    	JOptionPane.showMessageDialog(null, "비밀번호 일치!");
 			    	change_password();			//비밀번호가 맞을 경우 change_password 함수 호출//
 			    }
 			    else {
-			    System.out.println("Your password is: " + new String(password));
 			    JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다!");
 			    }
 			    }
